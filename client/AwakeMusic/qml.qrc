@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>image/anchor-left.png</file>
+        <file>image/anchor-right.png</file>
+        <file>image/close-normal.png</file>
+        <file>image/icon-col-click.png</file>
+        <file>image/icon-col.png</file>
+        <file>image/icon-delete.png</file>
+        <file>image/icon-history-click.png</file>
+        <file>image/icon-history.png</file>
+        <file>image/icon-person-center.png</file>
+        <file>image/last.png</file>
+        <file>image/localMusic.png</file>
+        <file>image/net.png</file>
+        <file>image/next.png</file>
+        <file>image/pause.png</file>
+        <file>image/play.png</file>
+        <file>image/random.png</file>
+        <file>image/search-press.png</file>
+        <file>image/search.png</file>
+        <file>image/sequence.png</file>
+        <file>image/slider-point.png</file>
+        <file>image/update.png</file>
+        <file>image/volume-high-icon.png</file>
+        <file>image/volume-low-icon.png</file>
+        <file>image/volume-medium-icon.png</file>
+        <file>image/volume-mute-icon.png</file>
+        <file>qml/Topbar.qml</file>
+        <file>qml/BottomBar.qml</file>
+        <file>qml/LeftMain.qml</file>
+        <file>qml/sub/LeftMainTopBar.qml</file>
+        <file>qml/sub/LocalPlayList.qml</file>
+        <file>main.cpp</file>
+    </qresource>
+</RCC>
