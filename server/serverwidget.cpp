@@ -26,6 +26,7 @@ ServerWidget::ServerWidget(QWidget *parent) :
         QString ip = socket->peerAddress().toString();
         quint16 port = socket->peerPort();
 
+        qDebug()<<QString("[%1:%2]连接成功").arg(ip).arg(port);
         //显示在面板上
         QString str =QString("[%1:%2]连接成功").arg(ip).arg(port);
         //ui->textEdit->setText(str);

@@ -1,6 +1,7 @@
 QT += quick
 QT += core
 QT += multimedia
+QT += core gui
 
 CONFIG += c++11
 
@@ -9,6 +10,7 @@ CONFIG += c++11
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -18,7 +20,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     locallistmodel.cpp \
-    getInfo.cpp
+    getInfo.cpp \
+    clientwidget.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,4 +41,8 @@ DISTFILES += \
 
 HEADERS += \
     locallistmodel.h \
-    getInfo.h
+    getInfo.h \
+    clientwidget.h
+
+FORMS += \
+    clientwidget.ui
