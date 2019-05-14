@@ -1,0 +1,76 @@
+ctrl+移动（放大） ： 移动（放大）固定步长
+GameObject->Break Prefab Instance ： 切断与预设体联系
+碰撞检测函数 OnCollisonEnter()
+获取碰撞物体信息： collision.collider//collision..collider.name//
+触发检测： OnTriggerEneter()
+
+光源：
+光照贴图：window->lighting->setting->generate lighting(将要做成贴图的灯光设置为static，mode设置为Baked)
+
+导航控制任务移动（脚本）：
+	获取目标位置（获取鼠标点的位置)
+using UnityEngine.AI;
+public NavMeshAgent agent;
+if(Input.GetMouseButtonDown(0)){
+	Ray ray = Camera.mian.ScreenPointToRay(Input.mousePosition);
+	RaycasHit hit;
+	if(Physic.Raycast(ray,out hit)){
+		agent.SetDestination(hit.point);
+	}
+{
+
+实例化：GameObject a = Instaite() as a GameObject();
+渐变 Mathf.lerp();
+
+检测鼠标进入移出：
+	using system.systemevent
+	,IpointerExitHander,enter
+	IPointerDown //鼠标点下  判断是左右键： eventData.button = PointerEventdata.InputButton.left
+
+鼠标的坐标：Input.mousePositon
+
+取得屏幕坐标
+RectTransformUitility.ScreenPointTolocalRectangel(哪个屏幕，哪个坐标，null，out positon);
+
+文本颜色：string text = string.Format("<color = (0)>(1)</color>",color,name);
+
+判断是否存在UI：UnityEngine.EventSystems.EventSystem.current.isPointerOverGameObject(-1) == false//-1表示鼠标
+
+//判断是否是相同类型物品 if(.item is Equipment)//背包系统
+
+保存游戏（背包系统）
+遍历每个格子的物品，获得物品信息，保存为本地文件
+StringBuilder sb = new StringBuilder();
+sb.add(item.id + ","+item.amount);id，amount逗号分隔，格子—分割；
+
+将sb保存到本地
+PlayerPrefs.SetString(name,sb.toStirng());
+
+
+///////////////////////////////////////////////////////////////////
+UGUI
+
+组件
+*scrollRect组件   （*表示这几个组件一起使用）
+	例如给Image添加该组件，该Image中的text就可以滚动
+*mask组件
+	接上个组件，将超出Image的文字隐藏
+*scrollBar组件
+	将该组赋值给ScorllRect中的ScorllBar属性
+slider组件
+	类似button组件 当value改变 调用函数
+shadow组件
+	给text添加阴影效果
+outline组件
+	给text添加外边框
+toggle Group组件
+	管理toggle组件，只能选中一个toggle
+	
+canvas group组件 给Canvas添加该组件，可以通过调节该组件上的alpa值，实现现实与隐藏
+
+
+
+函数相关
+Application.LoadLevel(stirng场景名 or int场景序号);
+scorllRect相关函数：拖动开始，拖动结束，继承自 IBeginDragHande,IEndGragHandel
+
