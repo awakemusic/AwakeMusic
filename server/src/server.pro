@@ -27,10 +27,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        serverwidget.cpp
+        serverwidget.cpp \
+    resolver.cpp
 
 HEADERS += \
-        serverwidget.h
+        serverwidget.h \
+    resolver.h
 
 FORMS += \
         serverwidget.ui
@@ -39,3 +41,11 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+unix:!macx|win32: LIBS += -L$$PWD/../../libs/libzplay-2.02-sdk/C++/ -lzplay
+
+INCLUDEPATH += $$PWD/../../libs/libzplay-2.02-sdk/C++
+DEPENDPATH += $$PWD/../../libs/libzplay-2.02-sdk/C++
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../libs/libzplay-2.02-sdk/C++/zplay.lib
+else:unix:!macx|win32-g++: PRE_TARGETDEPS += $$PWD/../../libs/libzplay-2.02-sdk/C++/libzplay.a
