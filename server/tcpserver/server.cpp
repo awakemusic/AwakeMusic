@@ -27,11 +27,13 @@ Server::Server(QWidget *parent)
 //    message2 = a.at(1);
 //    albumFilePath = a.at(2);
 //    qDebug() << "构造函数赋值成功！";
-    musicBroker = new MusicBroker();
-    m = musicBroker->findByName();
+//    musicBroker = new MusicBroker();
+//    m = musicBroker->findByName("xiaochou");
+//    a = m->getInformation(a);
+//    qDebug() << "徐露";
+//    qDebug() << a[0] << a[1] << a[2];
 
-
-    QPixmap(albumFilePath).save(&buffer,"JPG");
+    //QPixmap(albumFilePath).save(&buffer,"JPG");
     if(!tcpServer->listen(QHostAddress::Any,6667)){
         qDebug()<<tcpServer->errorString();
         close();
@@ -87,8 +89,15 @@ void Server::sendMessage()
     QDataStream out(&block, QIODevice::WriteOnly);
 
     out.setVersion(QDataStream::Qt_5_10);
+    musicBroker = new MusicBroker();
+    //m = new Music();
+    m = musicBroker->findByName(data);
+
+    a = m->getInformation(a);
     message1 = a.at(0);
     message2 = a.at(1);
+    albumFilePath = a.at(2);
+    QPixmap(albumFilePath).save(&buffer,"JPG");
 
     out << quint32(message1.size() +message2.size()+ buffer.data().size());
     out << message1 << message2;

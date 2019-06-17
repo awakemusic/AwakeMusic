@@ -9,7 +9,7 @@ class MusicBroker
 {
 public:
     MusicBroker();
-    Music* findByName();
+    Music* findByName(QString name);
     //Music findBySinger(QString singer);
 
 private:

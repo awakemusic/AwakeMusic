@@ -2,11 +2,10 @@
 
 MusicBroker::MusicBroker()
 {
-
+    sqltable = new Sqltable();
 }
 
-Music* MusicBroker::findByName()
+Music* MusicBroker::findByName(QString name)
 {
-    return sqltable->querysingle("xiaochou");
-
+    return sqltable->querysingle(name);
 }
