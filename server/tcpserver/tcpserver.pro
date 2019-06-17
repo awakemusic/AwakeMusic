@@ -1,15 +1,13 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-05-14T18:08:13
+# Project created by QtCreator 2019-05-30T17:54:46
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += core gui network
+QT       += core gui widgets
+QT += network sql
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-TARGET = server
+TARGET = tcpserver
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -27,25 +25,27 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        serverwidget.cpp \
-    resolver.cpp
+        mainwindow.cpp \
+    server.cpp \
+    sqltable.cpp \
+    music.cpp \
+    musicbroker.cpp \
+    singer.cpp \
+    album.cpp
 
 HEADERS += \
-        serverwidget.h \
-    resolver.h
+        mainwindow.h \
+    server.h \
+    sqltable.h \
+    music.h \
+    musicbroker.h \
+    singer.h \
+    album.h
 
 FORMS += \
-        serverwidget.ui
+        mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-unix:!macx|win32: LIBS += -L$$PWD/../../libs/libzplay-2.02-sdk/C++/ -lzplay
-
-INCLUDEPATH += $$PWD/../../libs/libzplay-2.02-sdk/C++
-DEPENDPATH += $$PWD/../../libs/libzplay-2.02-sdk/C++
-
-win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../libs/libzplay-2.02-sdk/C++/zplay.lib
-else:unix:!macx|win32-g++: PRE_TARGETDEPS += $$PWD/../../libs/libzplay-2.02-sdk/C++/libzplay.a
