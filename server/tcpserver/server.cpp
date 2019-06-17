@@ -16,28 +16,11 @@ Server::Server(QWidget *parent)
 
     qDebug() << "构造函数赋值成功！";
 
-//    m = musicBroker->findByName("xiaochou");
-//    a = m->getInformation(a);
-//    qDebug() << a[0] << a[1];
-
-    //m = s->querysingle("xiaochou");
-//    a = m->getInformation(a);
-//    qDebug() << a.at(0) << a.at(1) << a.at(2);
-//    message1 = a.at(0);
-//    message2 = a.at(1);
-//    albumFilePath = a.at(2);
-//    qDebug() << "构造函数赋值成功！";
-//    musicBroker = new MusicBroker();
-//    m = musicBroker->findByName("xiaochou");
-//    a = m->getInformation(a);
-//    qDebug() << "徐露";
-//    qDebug() << a[0] << a[1] << a[2];
-
-    //QPixmap(albumFilePath).save(&buffer,"JPG");
     if(!tcpServer->listen(QHostAddress::Any,6667)){
         qDebug()<<tcpServer->errorString();
         close();
     }
+
     // tcpServer->listen( QHostAddress::LocalHost, 6667);
     connect(tcpServer,&QTcpServer::newConnection,this,&Server::acceptConnection);
     //调用了qtcpserver类的listen（）函数来监听到来的连接，这里监听了本地主机的6666端口，这样可以实现客户端和服务端在同一台计算机上运行并通信，也可以换成其他地址。
@@ -94,9 +77,12 @@ void Server::sendMessage()
     m = musicBroker->findByName(data);
 
     a = m->getInformation(a);
+    qDebug() << "徐露";
+    qDebug() << a[0] << a[1];
     message1 = a.at(0);
     message2 = a.at(1);
     albumFilePath = a.at(2);
+    a.clear();
     QPixmap(albumFilePath).save(&buffer,"JPG");
 
     out << quint32(message1.size() +message2.size()+ buffer.data().size());
