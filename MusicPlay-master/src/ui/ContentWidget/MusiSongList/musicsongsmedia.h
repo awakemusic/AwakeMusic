@@ -16,6 +16,7 @@ private:
     void initConnect();
 Q_SIGNALS:
     void signalPlayMediaMusic(QString path);
+    void signalShowMediaLrc(QString songPinYin);
 public Q_SLOTS:
     void slotAddItem(QString title,QString singer,QString album);
     void slotSaveMusicInfo(QString name,QString pinyin);

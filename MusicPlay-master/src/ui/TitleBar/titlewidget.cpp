@@ -43,10 +43,10 @@ void TitleWidget::initWidget()
     //IconHelper::Instance()->SetIcoMain(m_labelIcon);
     //程序标题
     m_labelTitle  = new QLabel(this);
-//    m_labelTitle->setText("音乐播放器");
-    m_labelTitle->setPixmap(QPixmap(":/image/MusicTitle.png"));
+//    m_labelTitle->setPixmap(QPixmap(":/image/MusicTitle.png"));
+    m_labelTitle->setText("AwakeMusic");
 
-    m_labelTitle->setFont(QFont("楷体", 11, QFont::Bold));
+    m_labelTitle->setFont(QFont("Times New Roman", 20, QFont::Bold));
     m_labelTitle->setObjectName("whiteLabel");
 
     //搜索框

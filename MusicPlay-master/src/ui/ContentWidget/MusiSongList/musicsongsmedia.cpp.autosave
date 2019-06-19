@@ -90,5 +90,4 @@ void MusicSongsMedia::slotCellDoubleClicked(int row, int cloumn)
     QString songPinYin = getMusicPinYin(songName);
     emit signalShowMediaLrc(songPinYin);
     emit signalPlayMediaMusic(MusicPath + songPinYin + ".mp3");
-//    PlayMusic(songName);
 }

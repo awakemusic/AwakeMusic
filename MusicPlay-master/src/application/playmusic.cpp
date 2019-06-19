@@ -83,7 +83,9 @@ void PlayMusic::slotOpenMediaMusic(QString path)
         //    emit signalSendPlayPostion(m_player->GetPos());
         emit signalPlayStatue(MUSIC_PLAY);
         myHelper::Sleep(100);
-        emit signalSendPlayingMusic(path);
+        QString name = path.remove(path.left(26));
+        path = name.remove(name.right(4));
+        emit signalSendPlayingMedia(path);
     }
 }
 

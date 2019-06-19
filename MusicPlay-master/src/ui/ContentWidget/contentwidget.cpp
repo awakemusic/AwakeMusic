@@ -88,6 +88,8 @@ void Contentwidget::initConnect()
             m_musicSongsMedia,SLOT(slotAddItem(QString,QString,QString)));
     connect(this,SIGNAL(signalSendPinYin(QString,QString)),
             m_musicSongsMedia,SLOT(slotSaveMusicInfo(QString,QString)));
+    connect(m_musicSongsMedia,SIGNAL(signalShowMediaLrc(QString)),
+            m_musicLyrcWidget,SLOT(slotAnalyseMedia(QString)));
 }
 
 void Contentwidget::connectMusicList(int index)
@@ -156,6 +158,7 @@ void Contentwidget::slotReceiveFirstPlayMusic(int cmd)
 void Contentwidget::slotShowLrc()
 {
     m_musicLyrcWidget->show();
+    m_musicSongsMedia->hide();
     m_musicSongList.at(m_currentwidget)->hide();
     m_showOrHide = true;
 }
@@ -203,6 +206,7 @@ void Contentwidget::slotShowOrHide()
 
 void Contentwidget::slotShowMediaSongs()
 {
+    m_musicSongsMedia->removeAllItem();
     m_musicSongsMedia->show();
     m_musicSongList.at(m_currentwidget)->hide();
     m_musicLyrcWidget->hide();

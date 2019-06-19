@@ -152,7 +152,24 @@ void MusicDesktopLrcManage::analysisLyrc(const QString &name)
     }
 }
 
-void MusicDesktopLrcManage::slotReceiveMusicInfo(const QString &name)
+void MusicDesktopLrcManage::slotAnalyseLrc(QString name)
+{
+    QString lrcName = "/root/MusicPlay-master/Lrc/" + name + ".lrc";
+    QFile file(lrcName);
+
+    if (!file.open(QFile::ReadOnly | QIODevice::Text))
+    {
+        m_labelLrc->setText("没有找到对应歌词!");
+    }else
+    {
+        m_labelLrc->setText("正在加载歌词");
+        QTextStream in(&file);
+        in.setCodec("UTF-8");
+        m_lrcText->setText(in.readAll());
+    }
+}
+
+void MusicDesktopLrcManage::slotReceiveMusicInfo(QString name)
 {
     this->analysisLyrc(name);
 }

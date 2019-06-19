@@ -1,4 +1,4 @@
-#include "client.h"
+﻿#include "client.h"
 #include <QtNetwork>
 #include <QImageReader>
 #include <iostream>
@@ -9,6 +9,11 @@
 Client::Client()
 {
     tcpSocket = new QTcpSocket();
+
+    totalBytes = 0;
+    bytesReceived = 0;
+    fileNameSize = 0;
+    inBlock = 0;
 
 //    button = new QPushButton("play");
 //    QPushButton *button2 = new QPushButton("play2");
@@ -108,12 +113,57 @@ void Client::showString()
     QImage image = reader.read();
     if(!image.isNull())
     {
-        filename = "/root/image/test.jpg";
+        QString filename = "/root/image/test.jpg";
         image.save(filename);
-        tcpSocket->close();
+       // tcpSocket->close();
         emit signalShowImage(image);
     }
     blockSize = 0;
+
+    if(bytesReceived <= sizeof(qint32)*2)
+    {
+        if(tcpSocket->bytesAvailable() >= sizeof(qint32)*2)
+        {
+            in >> totalBytes >> fileNameSize;
+            qDebug() << totalBytes;
+            qDebug() << fileNameSize;
+            bytesReceived += sizeof(qint32)*2;
+        }
+        if(tcpSocket->bytesAvailable() >= fileNameSize && (fileNameSize != 0))
+        {
+            in >> fileName;
+            //fileName = "music";
+            qDebug() << "readd";
+            bytesReceived += fileNameSize;
+            QString name = "/root/MusicPlay-master/Lrc/" + fileName;
+            localFile = new QFile(name);
+            qDebug() << fileName;
+            if(!localFile->open(QFile::WriteOnly))
+            {
+                qDebug() << "file:open error!";
+                return;
+            }
+        }else{
+            return;
+        }
+    }
+    if(bytesReceived < totalBytes ){
+        bytesReceived += tcpSocket->bytesAvailable();
+//        m_lrcText->setText(tcpSocket->readAll());
+        inBlock = tcpSocket->readAll();
+        qDebug() << inBlock;
+        localFile->write(inBlock);
+        qDebug() << "writing";
+
+        inBlock.resize(0);
+    }
+    if(bytesReceived == totalBytes){
+
+        localFile->close();
+        tcpSocket->close();
+    qDebug() << "accept success";
+
+    }
 
 }
 

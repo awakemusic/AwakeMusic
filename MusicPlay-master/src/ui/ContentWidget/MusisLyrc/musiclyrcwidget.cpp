@@ -121,3 +121,20 @@ void MusicLyrcWidget::slotReceiveCurrentPlayTime(qint64 time)
         qDebug()<<QString(str);
     }
 }
+
+void MusicLyrcWidget::slotAnalyseMedia(QString name)
+{
+    QString lrcName = "/root/MusicPlay-master/Lrc/" + name + ".lrc";
+    QFile file(lrcName);
+
+    if (!file.open(QFile::ReadOnly | QIODevice::Text))
+    {
+        m_labelLyrc->setText("没有找到对应歌词!");
+    }else
+    {
+        m_labelLyrc->setText("正在加载歌词");
+        QTextStream in(&file);
+        in.setCodec("UTF-8");
+        m_lrcText->setText(in.readAll());
+    }
+}

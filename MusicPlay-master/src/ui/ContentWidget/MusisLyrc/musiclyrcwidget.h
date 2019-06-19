@@ -36,6 +36,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void slotReceiveMusicInfo(const QString &name); //接收歌曲信息，准备解析歌词
     void slotReceiveCurrentPlayTime(qint64);        //接收当前播放的时间
+    void slotAnalyseMedia(QString name);
 private:
     QLabel *m_labelLyrc;
     QTextEdit *m_lrcText;

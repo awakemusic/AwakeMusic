@@ -149,6 +149,8 @@ void MusicMainWidget::initConnect()
     /**********************解析歌词信号关联**************************/
     connect(m_player,SIGNAL(signalSendPlayingMusic(QString)),
             m_contentWidget,SIGNAL(signalRequestPlayingMusic(QString)));
+    connect(m_player,SIGNAL(signalSendPlayingMedia(QString)),
+            m_desktopLrc,SLOT(slotAnalyseLrc(QString)));
     connect(m_player,SIGNAL(signalSendPlayingMusic(QString)),
             m_desktopLrc,SLOT(slotReceiveMusicInfo(QString)));
     connect(m_player,SIGNAL(signalSendPlayPostion(qint64)),
@@ -170,6 +172,8 @@ void MusicMainWidget::initConnect()
             m_contentWidget,SIGNAL(signalShowInfo(QString,QString,QString)));
     connect(m_client,SIGNAL(signalSendPinYin(QString,QString)),
             m_contentWidget,SIGNAL(signalSendPinYin(QString,QString)));
+//    connect(m_client,SIGNAL(signalSendLrc(QTextEdit)),
+//            m_contentWidget,SIGNAL(signalSendLrc(QTextEdit)));
 }
 
 void MusicMainWidget::mousePressEvent(QMouseEvent *event)

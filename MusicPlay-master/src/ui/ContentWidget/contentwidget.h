@@ -73,6 +73,7 @@ private:
     MusicLyrcWidget *m_musicLyrcWidget;
     MusicSongsLists *m_musicSongsLists;
     MusicSongsMedia *m_musicSongsMedia;
+    QList<MusicSongsMedia *> m_musicListsMedia;
     int m_currentwidget;
     bool m_showOrHide;
 

@@ -4,6 +4,8 @@
 #include <QAbstractSocket>
 #include <QDialog>
 #include <QBuffer>
+#include <QFile>
+#include <QTextEdit>
 
 QT_BEGIN_NAMESPACE
 class QTcpSocket;
@@ -27,15 +29,22 @@ Q_SIGNALS:
     void signalShowImage(QImage image);
     void signalSendInfo(QString name,QString singer,QString album);
     void signalSendPinYin(QString name,QString pinyin);
+    void signalSendLrc(QTextEdit *&lrc);
 private:
     QTcpSocket *tcpSocket;
     QString data;
-    //QPushButton *sendDataButton;
     //用来存放数据的大小信息
     QBuffer buffer;
     quint32 blockSize;
-    QString filename;
+    QString fileName;
     QImage image;
+
+    QFile *localFile;
+    qint32 totalBytes;
+    qint32 fileNameSize;
+    qint32 bytesReceived;
+    QByteArray inBlock;
+    QTextEdit *m_lrcText;
 //    QPushButton *button;
 };
 

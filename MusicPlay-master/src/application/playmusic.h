@@ -31,6 +31,7 @@ Q_SIGNALS:
     void signalSendPlayVolume(int);             //发送当前媒体音量
     void signalSendPlayPostion(qint64);         //发送当前媒体播放位置
     void signalSendPlayingMusic(const QString &);//发送当前正在播放的歌曲，用于解析歌词
+    void signalSendPlayingMedia(QString );
     void signalSendCurPlayTime(qint64);          //发送当前播放时间
     void signalSendPlayNextMusic(int mode);     //播放完毕后发送播放下一首信号
 

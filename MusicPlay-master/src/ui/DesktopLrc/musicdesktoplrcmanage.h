@@ -38,6 +38,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void slotLock();
     void slotClose();
+    void slotAnalyseLrc(QString name);
 protected:
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
@@ -45,10 +46,10 @@ protected:
     virtual void enterEvent(QEvent *event);
     virtual void leaveEvent(QEvent *event);
     virtual void closeEvent(QCloseEvent *event);
-    void analysisLyrc(const QString &name);         //解析歌词
+    void analysisLyrc(const QString &name);         //解析歌词 
 
 public Q_SLOTS:
-    void slotReceiveMusicInfo(const QString &name); //接收歌曲信息，准备解析歌词
+    void slotReceiveMusicInfo(QString name); //接收歌曲信息，准备解析歌词
     void slotReceiveCurrentPlayTime(qint64);        //接收当前播放的时间
 
 private:
