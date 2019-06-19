@@ -6,9 +6,9 @@
 
 class MusicLyrcWidget;
 class QHBoxLayout;
-//class MusicSongsSummarizied;
 class MusicSongsLists;
 class MusicSongsListWidget;
+class MusicSongsMedia;
 
 class Contentwidget : public QWidget
 {
@@ -27,6 +27,7 @@ private:
 Q_SIGNALS:
     //发送要播放的音乐(包括音乐具体信息)
     void signalPlayMusic(QString music);
+    void signalPlayMediaMusic(QString path);
 
     //向上发送播放上一首、下一首请求，歌曲列表收到该信号后会向下返回要播放的歌曲信息
     void signalSendPlayNext();
@@ -48,6 +49,10 @@ Q_SIGNALS:
     //根据播放模式，请求歌曲
     void signalRequestPlayCmd(int);
     void signalSendPlayCmdMusic(const QString &);
+
+    //显示客户端传输信息
+    void signalShowInfo(QString,QString,QString);
+    void signalSendPinYin(QString,QString);
     
 public slots:
     //接收bottombar发送过来的播放命令
@@ -58,6 +63,7 @@ public slots:
     void slotAddNewList();
     void slotDeleteList(int row);
     void slotShowOrHide();
+    void slotShowMediaSongs();
 protected:
     virtual void paintEvent(QPaintEvent *);
 
@@ -66,6 +72,7 @@ private:
     QList<MusicSongsListWidget *> m_musicSongList;
     MusicLyrcWidget *m_musicLyrcWidget;
     MusicSongsLists *m_musicSongsLists;
+    MusicSongsMedia *m_musicSongsMedia;
     int m_currentwidget;
     bool m_showOrHide;
 

@@ -59,7 +59,7 @@ void Client::newConnect()
 {
     blockSize = 0;
     tcpSocket->abort();
-    tcpSocket->connectToHost("10.253.0.67", 6667);
+    tcpSocket->connectToHost("10.253.110.152", 6667);
     //connect(tcpSocket, &QIODevice::readyRead,this,&Client::showPicture);
 }
 
@@ -79,15 +79,18 @@ void Client::showString()
     //如果没有得到全部的数据，则返回，继续接收数据
     if(tcpSocket->bytesAvailable()<blockSize) return;
     //将接收到的数据存放到变量中
-    QString message1, message2;
-    in >> message1 >> message2 ;
-    if(message1.isNull()&&message2.isNull())
+    //message顺序：中文，英文，歌手，专辑，图片，文件
+    QString name, pinyin,singer,album;
+    in >> name >> pinyin >> singer >>album;
+    if(name.isNull()&&pinyin.isNull()&&singer.isNull() && album.isNull())
     {
         qDebug()<<"kong";
     }
+    emit signalSendInfo(name,singer,album);
+    emit signalSendPinYin(name,pinyin);
     //显示接收到的数据
-    qDebug()<<message1 << message2;
-    blockSize = blockSize - message1.size()-message2.size();
+    qDebug()<<name << pinyin << singer <<album;
+    blockSize = blockSize - name.size() - pinyin.size() - singer.size()-album.size();
 
     //    while(tcpSocket->bytesAvailable()>0)
     //    {

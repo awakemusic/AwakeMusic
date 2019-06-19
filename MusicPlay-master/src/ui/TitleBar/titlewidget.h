@@ -30,6 +30,7 @@ Q_SIGNALS:
     void signalMin();
     void signalClose();
     void signalSearchContent(const QString &test);
+    void signalSearchClicked();
     
 private Q_SLOTS:
 

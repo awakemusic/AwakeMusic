@@ -33,6 +33,7 @@ private slots:
     void slotSendSearchContent();
 signals:
     void signalSearchContent(const QString &test);
+    void signalSearchClicked();
 
 private:
     QToolButton *m_tbnSearch;

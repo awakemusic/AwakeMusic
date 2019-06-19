@@ -58,6 +58,35 @@ void PlayMusic::slotOpenMusic(QString name)
     }
 }
 
+void PlayMusic::slotOpenMediaMusic(QString path)
+{
+    if (path.isEmpty())
+    {
+        emit signalPlayStatue(MUSIC_PAUSE);
+        qDebug()<<"当前返回为空";
+        return;
+    }else
+    {
+        m_player->PlayMeida(path);
+        setPlayMusic();
+
+        myHelper::Sleep(100);
+        qint64 length = m_player->GetLength();
+#if QDEBUG_OUT
+//        qDebug() <<name;
+//        qDebug()<<"媒体长度："<<length;
+#endif
+
+        //打开媒体后，发送媒体信息，包括：媒体长度、当前声音、当前位置
+        emit signalSendPlayLength(length);
+        //    emit signalSendPlayVolume(m_player->getVolume());
+        //    emit signalSendPlayPostion(m_player->GetPos());
+        emit signalPlayStatue(MUSIC_PLAY);
+        myHelper::Sleep(100);
+        emit signalSendPlayingMusic(path);
+    }
+}
+
 //改变当前播放媒体音量
 void PlayMusic::slotSetPlayVolume(int value)
 {

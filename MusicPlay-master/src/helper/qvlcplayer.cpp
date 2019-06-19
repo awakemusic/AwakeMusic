@@ -69,6 +69,51 @@ bool QVlcPlayer::Play(QString strPath)
     return bRet;
 }
 
+bool QVlcPlayer::PlayMeida(QString strPath)
+{
+    if (!m_pVLC_Inst)
+    {
+        this->Init();
+    }
+    if (strPath.isEmpty() || !m_pVLC_Inst)
+    {
+        return false;
+    }
+
+    this->Stop();
+
+    bool bRet = false;
+    libvlc_media_t *m;
+
+#if defined(Q_OS_WIN)
+    m_filePath = strPath.replace("/","\\",Qt::CaseSensitive);
+#elif defined(Q_OS_LINUX)
+    m_filePath = strPath;
+//    m_filePath = "rtsp://192.168.30.145/song.mp3";
+#endif
+    //将文件路径进行编码转换(不转换的话不能识别中文,进而会出现错误)
+    m_filePath = UnicodeToUTF8(m_filePath);
+//    std::string str = m_filePath.toStdString();
+
+//    m = libvlc_media_new_path(m_pVLC_Inst,m_filePath.toLocal8Bit()/*toAscii()*/);
+    m = libvlc_media_new_location(m_pVLC_Inst,m_filePath.toLocal8Bit());
+    if (m)
+    {
+        m_pVLC_Player = libvlc_media_player_new_from_media(m);
+        if (m_pVLC_Player)
+        {
+            libvlc_media_player_play(m_pVLC_Player);
+            // 事件管理
+            libvlc_event_manager_t *vlc_evt_man = libvlc_media_player_event_manager(m_pVLC_Player);
+            libvlc_event_attach(vlc_evt_man, libvlc_MediaPlayerEndReached, ::OnVLC_EndReached, this);
+            libvlc_event_attach(vlc_evt_man, libvlc_MediaPlayerPositionChanged, ::OnVLC_PositionChanged, this);
+            bRet = true;
+        }
+        libvlc_media_release(m);
+    }
+    return bRet;
+}
+
 void QVlcPlayer::Play()
 {
     if (m_pVLC_Player)

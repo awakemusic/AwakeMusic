@@ -36,6 +36,7 @@ Q_SIGNALS:
 
 public  Q_SLOTS:
     void slotOpenMusic(QString name);
+    void slotOpenMediaMusic(QString path);
 //    void slotSetPlayOrPause(int state);
     void slotSetPlayVolume(int);                    //设置播放音量
     void slotSetPlayPostion(qint64);                //设置播放位置

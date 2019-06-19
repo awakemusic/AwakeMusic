@@ -82,6 +82,8 @@ void MusicMainWidget::initLayout()
 void MusicMainWidget::initConnect()
 {
     //标题栏信号和槽关联
+    connect(m_titleWidget,SIGNAL(signalSearchClicked()),
+            m_contentWidget,SLOT(slotShowMediaSongs()));
     connect(m_titleWidget,SIGNAL(signalSkin()),
             this,SLOT(slotShowSkinWidget()));
     connect(m_titleWidget,SIGNAL(signalMin()),
@@ -94,6 +96,8 @@ void MusicMainWidget::initConnect()
     //中央窗体信号和槽关联
     connect(m_contentWidget,SIGNAL(signalPlayMusic(QString)),
             m_player,SLOT(slotOpenMusic(QString)));
+    connect(m_contentWidget,SIGNAL(signalPlayMediaMusic(QString)),
+            m_player,SLOT(slotOpenMediaMusic(QString)));
 
     connect(m_player,SIGNAL(signalPlayStatue(int)),
             m_bottomWidget,SLOT(slotSetPlayOrPause(int)));
@@ -162,6 +166,10 @@ void MusicMainWidget::initConnect()
     /******************获取从服务器发过来的消息**********************/
     connect(m_client,SIGNAL(signalShowImage(QImage)),
             m_bottomWidget,SLOT(slotShowImage(QImage)));
+    connect(m_client,SIGNAL(signalSendInfo(QString,QString,QString)),
+            m_contentWidget,SIGNAL(signalShowInfo(QString,QString,QString)));
+    connect(m_client,SIGNAL(signalSendPinYin(QString,QString)),
+            m_contentWidget,SIGNAL(signalSendPinYin(QString,QString)));
 }
 
 void MusicMainWidget::mousePressEvent(QMouseEvent *event)

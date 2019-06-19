@@ -8,6 +8,7 @@
 //#include "MusiSongList/musicsongssummarizied.h"
 #include <QDebug>
 #include "app.h"
+#include "MusiSongList/musicsongsmedia.h"
 
 Contentwidget::Contentwidget(QWidget *parent) :
     QWidget(parent)
@@ -29,6 +30,7 @@ Contentwidget::~Contentwidget()
         delete w;
         w = NULL;
     }
+    delete m_musicSongsMedia;
 }
 
 void Contentwidget::initForm()
@@ -40,6 +42,7 @@ void Contentwidget::initWidget()
 //    m_songsSummarizied = new MusicSongsSummarizied(this);
     m_musicSongsLists = new MusicSongsLists(this);
     m_musicLyrcWidget = new MusicLyrcWidget(this);
+    m_musicSongsMedia = new MusicSongsMedia(this);
     MusicSongsListWidget *widget = new MusicSongsListWidget(this);
     m_musicSongList.append(widget);
     widget->addMusicFold("/root/CloudMusic/");
@@ -52,11 +55,13 @@ void Contentwidget::initLayout()
     m_mainLayout->addWidget(m_musicSongsLists,Qt::AlignLeft);
     m_mainLayout->addWidget(m_musicLyrcWidget,Qt::AlignRight);
     m_mainLayout->addWidget(m_musicSongList.at(0),Qt::AlignRight);
+    m_mainLayout->addWidget(m_musicSongsMedia,Qt::AlignRight);
     m_currentwidget = 0;
     this->connectMusicList(m_currentwidget);
     m_mainLayout->setContentsMargins(0,0,0,0);
     setLayout(m_mainLayout);
     m_musicLyrcWidget->hide();
+    m_musicSongsMedia->hide();
     m_showOrHide = false;
 }
 
@@ -76,6 +81,13 @@ void Contentwidget::initConnect()
             this,SLOT(slotAddNewList()));
     connect(m_musicSongsLists,SIGNAL(signalDeleteList(int)),
             this,SLOT(slotDeleteList(int)));
+    connect(m_musicSongsMedia,SIGNAL(signalPlayMediaMusic(QString)),
+            this,SIGNAL(signalPlayMediaMusic(QString)));
+    /***************显示客户端传输数据**********************/
+    connect(this,SIGNAL(signalShowInfo(QString,QString,QString)),
+            m_musicSongsMedia,SLOT(slotAddItem(QString,QString,QString)));
+    connect(this,SIGNAL(signalSendPinYin(QString,QString)),
+            m_musicSongsMedia,SLOT(slotSaveMusicInfo(QString,QString)));
 }
 
 void Contentwidget::connectMusicList(int index)
@@ -164,6 +176,7 @@ void Contentwidget::slotShowList(int row)
     m_musicSongList.at(row)->show();
     m_currentwidget = row;
     this->connectMusicList(m_currentwidget);
+    m_musicSongsMedia->hide();
 }
 
 void Contentwidget::slotAddNewList()
@@ -186,6 +199,14 @@ void Contentwidget::slotShowOrHide()
         slotHideLrc();
     else
         slotShowLrc();
+}
+
+void Contentwidget::slotShowMediaSongs()
+{
+    m_musicSongsMedia->show();
+    m_musicSongList.at(m_currentwidget)->hide();
+    m_musicLyrcWidget->hide();
+    m_showOrHide = false;
 }
 
 //重绘事件

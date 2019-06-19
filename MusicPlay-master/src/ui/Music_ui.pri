@@ -11,7 +11,8 @@ HEADERS += \
     $$PWD/DesktopLrc/lyrctoolbarwidget.h \
     $$PWD/DesktopLrc/lyrcpushbutton.h \
     $$PWD/BottomBar/playmodemenu.h \
-    $$PWD/ContentWidget/MusiSongList/musicsongslists.h
+    $$PWD/ContentWidget/MusiSongList/musicsongslists.h \
+    $$PWD/ContentWidget/MusiSongList/musicsongsmedia.h
 
 SOURCES += \
     $$PWD/TitleBar/titlewidget.cpp \
@@ -26,4 +27,5 @@ SOURCES += \
     $$PWD/DesktopLrc/lyrctoolbarwidget.cpp \
     $$PWD/DesktopLrc/lyrcpushbutton.cpp \
     $$PWD/BottomBar/playmodemenu.cpp \
-    $$PWD/ContentWidget/MusiSongList/musicsongslists.cpp
+    $$PWD/ContentWidget/MusiSongList/musicsongslists.cpp \
+    $$PWD/ContentWidget/MusiSongList/musicsongsmedia.cpp

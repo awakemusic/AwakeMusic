@@ -25,6 +25,8 @@ public slots:
 
 Q_SIGNALS:
     void signalShowImage(QImage image);
+    void signalSendInfo(QString name,QString singer,QString album);
+    void signalSendPinYin(QString name,QString pinyin);
 private:
     QTcpSocket *tcpSocket;
     QString data;

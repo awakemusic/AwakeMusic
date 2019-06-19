@@ -17,6 +17,7 @@ public:
     ~QVlcPlayer();
 
     bool Play(QString strPath);             // 播放路径为strPath的文件
+    bool PlayMeida(QString strPath);             // 播放流媒体歌曲
     void Play ();                           // 播放
     void Pause();                           // 暂停
     void Stop ();                           // 停止

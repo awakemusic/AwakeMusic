@@ -101,4 +101,6 @@ void TitleWidget::initConnect()
             this,SIGNAL(signalClose()));
     connect(m_search,SIGNAL(signalSearchContent(QString)),
             this,SIGNAL(signalSearchContent(QString)));
+    connect(m_search,SIGNAL(signalSearchClicked()),
+            this,SIGNAL(signalSearchClicked()));
 }

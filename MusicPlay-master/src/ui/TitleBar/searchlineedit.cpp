@@ -102,8 +102,12 @@ void SearchLineEdit::slotSendSearchContent()
     else
         str = this->text();
 
+
+    if(str != ""){
     qDebug()<<"\nsearch content:"<<str<<endl;
     emit signalSearchContent(str);
+    emit signalSearchClicked();
+    }
 }
 
 
