@@ -255,8 +255,10 @@ std::vector<Singer*> Sqltable::querySinger()
     return singers;
 }
 
-void Sqltable::queryAlbum()
+std::vector<Album*> Sqltable::queryAlbum()
 {
+    std::vector<Album*> albums;
+    Album *album;
     QString select_all_sql = "select * from album";
     //QSqlQuery sql_query1;
     db.open();
@@ -279,9 +281,14 @@ void Sqltable::queryAlbum()
             QString singerName = sql_queryAlbum.value(3).toString();
             qDebug()<<"checked";
             qDebug()<<QString("ID:%1  Name:%2  starDate:%3  singerName:%4" ).arg(id).arg(name).arg(startTime).arg(singerName);
+            album = new Album(name,startTime,singerName);
+            albums.push_back(album);
+            delete album;
+            album = nullptr;
         }
     }
     db.close();
+    return albums;
 }
 
 void Sqltable::query()
@@ -492,6 +499,93 @@ QString Sqltable::querysingleTransform(QString name)
     db.close();
 
     return sspell;
+}
+
+//返回歌手的所有专辑名字
+std::vector<QString> Sqltable::querySingerAlbum(QString name)
+{
+    std::vector<QString> albums;
+    db.open();
+    QString select_sql = "select * from album where singername = '" + name +"'";
+    sql_queryAlbum.prepare(select_sql);
+    //sql_query.addBindValue(name);
+    if(!sql_queryAlbum.exec())
+    {
+        qDebug()<<sql_queryAlbum.lastError();
+    }
+    else
+    {
+        qDebug()<<"查询成功" ;
+        while(sql_queryAlbum.next())
+        {
+
+
+            QString name = sql_queryAlbum.value(1).toString();
+            albums.push_back(name);
+
+            qDebug()<<"checked";
+            qDebug()<<QString("Name:%1 ").arg(name);
+        }
+    }
+    db.close();
+    return albums;
+}
+
+//输入专辑名返回专辑里的所有歌曲
+std::vector<QString> Sqltable::queryAlbumMusics(QString name)
+{
+    std::vector<QString> musics;
+    db.open();
+    QString select_sql = "select * from music where audiopath = '" + name +"'";
+    sql_query.prepare(select_sql);
+    //sql_query.addBindValue(name);
+    if(!sql_query.exec())
+    {
+        qDebug()<<sql_query.lastError();
+    }
+    else
+    {
+        qDebug()<<"查询成功" ;
+        while(sql_query.next())
+        {
+            QString name = sql_query.value(1).toString();
+            musics.push_back(name);
+
+            qDebug()<<"checked";
+            qDebug()<<QString("Name:%1 ").arg(name);
+        }
+    }
+    db.close();
+    return musics;
+
+}
+
+std::vector<QString> Sqltable::querySingerCategory(QString category)
+{
+    std::vector<QString> singers;
+    db.open();
+    QString select_sql = "select * from singer where category = '" + category +"'";
+    sql_querySinger.prepare(select_sql);
+    //sql_query.addBindValue(name);
+    if(!sql_querySinger.exec())
+    {
+        qDebug()<<sql_querySinger.lastError();
+    }
+    else
+    {
+        qDebug()<<"查询成功" ;
+        while(sql_querySinger.next())
+        {
+            QString name = sql_querySinger.value(1).toString();
+            singers.push_back(name);
+
+            qDebug()<<"checked";
+            qDebug()<<QString("Name:%1 ").arg(name);
+        }
+    }
+    db.close();
+    return singers;
+
 }
 
 

@@ -14,8 +14,9 @@ void Singer::addAlbum(Album *album)
     _albums.push_back(album);
 }
 
-std::vector<QString> Singer::getInformation(std::vector<QString> a)
+std::vector<QString> Singer::getInformation(std::vector<QString> info)
 {
-    a.push_back(m_name);
-    a.push_back(m_category);
+    info.push_back(m_name);
+    info.push_back(m_category);
+    return info;
 }

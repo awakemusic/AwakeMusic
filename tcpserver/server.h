@@ -24,6 +24,7 @@ private slots:
     void receiveData();
     void acceptConnection();
     void acceptFileConnection();
+    void acceptSingerConnection();
     void sendSinger();
     void sendPlaylist();
     void displayError(QAbstractSocket::SocketError socketError);
@@ -33,6 +34,9 @@ private:
     QTcpSocket *clientConnection;
     QTcpServer *fileServer;
     QTcpSocket *fileConnection;
+    QTcpServer *singerServer;
+    QTcpSocket *singerConection;
+
 
     Music *m;
     MusicBroker *musicBroker;
@@ -43,6 +47,7 @@ private:
 
     quint32 blockSize;
     QString data;
+    QString data2;
 
     QString message1;//歌名
     QString message2;//歌手

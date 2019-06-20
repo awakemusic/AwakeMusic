@@ -30,4 +30,19 @@ std::vector<Music*> MusicBroker::findPlayList(std::vector<QString> musics)
     return ms;
 }
 
+std::vector<QString> MusicBroker::findAlbums(QString name)
+{
+    return sqltable->querySingerAlbum(name);
+}
+
+std::vector<QString> MusicBroker::findMusics(QString name)
+{
+    return sqltable->queryAlbumMusics(name);
+}
+
+std::vector<QString> MusicBroker::findSingers(QString category)
+{
+    return sqltable->querySingerCategory(category);
+}
+
 

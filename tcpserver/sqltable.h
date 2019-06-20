@@ -35,11 +35,14 @@ public:
     void insertParmeterAlbum(int id, QString name, QString startDate,QString  singerName);
     void insertParmeterTransform(QString name, QString spell);
     std::vector<Singer*> querySinger();
-    void queryAlbum();
+    std::vector<Album*> queryAlbum();
     void queryTransform();
     Singer* querysingleSinger(QString name);
     Album* querysingleAlbum(QString name);
     QString querysingleTransform(QString name);
+    std::vector<QString> querySingerAlbum(QString name);
+    std::vector<QString> queryAlbumMusics(QString name);
+    std::vector<QString> querySingerCategory(QString category);
 };
 
 

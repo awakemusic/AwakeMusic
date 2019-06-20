@@ -13,6 +13,9 @@ public:
     QString findSpell(QString name);
     std::vector<Singer*> findSinger();
     std::vector<Music*> findPlayList(std::vector<QString> musics);
+    std::vector<QString> findAlbums(QString name);
+    std::vector<QString> findMusics(QString name);
+    std::vector<QString> findSingers(QString category);
     //Music findBySinger(QString singer);
 
 private:

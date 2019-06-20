@@ -10,9 +10,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Server *server = new Server;
     server->show();
-   Sqltable *sqltable = new Sqltable();
-
-      sqltable->query();
+    Sqltable *sqltable = new Sqltable();
+    sqltable->query();
 
     return a.exec();
 }

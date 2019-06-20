@@ -11,6 +11,8 @@ public:
     Album();
     Album(QString name, QString startDate,QString singerName);
     void addMusic(Music *music);
+    std::vector<QString> getAlbumInfo(std::vector<QString> info);
+
 private:
     QString m_name;
     QString m_startDate;

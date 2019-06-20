@@ -35,6 +35,8 @@ Server::Server(QWidget *parent)
     fileServer->listen(QHostAddress::Any, 8888);
     connect(fileServer, &QTcpServer::newConnection,this, &Server::acceptFileConnection);
 
+
+
 }
 
 
@@ -58,6 +60,12 @@ void Server::acceptFileConnection()
     sendPlaylist();
 }
 
+void Server::acceptSingerConnection()
+{
+    ui->label->setText("发送歌手分类");
+
+}
+
 void Server::receiveData()
 {
     QDataStream in(clientConnection);
@@ -74,22 +82,13 @@ void Server::receiveData()
     if(clientConnection->bytesAvailable()<blockSize) return;
     //将接收到的数据存放到变量中
     in >> data;
-    qDebug()<<data;
+    qDebug()<< data;
 
-    //    if(data == "推荐列表"){
+//        if(data1 == "music"){
+//            sendMessage();
+//        }
+//        if(data1 == "singer")
 
-    //    }
-    //    //    if(data == "分类"){
-    //    //        sendSinger();
-    //    //    }
-
-    //    else {
-
-    //    }
-    //    switch (data) {
-    //    case "分类":
-    //        sendSinger();
-    //    }
     if(!data.isNull())
     {
         sendMessage();
