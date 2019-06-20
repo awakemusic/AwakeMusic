@@ -21,16 +21,17 @@ Contentwidget::Contentwidget(QWidget *parent) :
 
 Contentwidget::~Contentwidget()
 {
-//    delete m_songsSummarizied;
+    //    delete m_songsSummarizied;
     delete m_musicSongsLists;
     delete m_musicLyrcWidget;
-//    delete m_musicSongList;
+    //    delete m_musicSongList;
     while (!m_musicSongList.isEmpty()) {
         MusicSongsListWidget *w = m_musicSongList.takeLast();
         delete w;
         w = NULL;
     }
     delete m_musicSongsMedia;
+    delete m_musicSongsMedia2;
 }
 
 void Contentwidget::initForm()
@@ -39,10 +40,11 @@ void Contentwidget::initForm()
 
 void Contentwidget::initWidget()
 {
-//    m_songsSummarizied = new MusicSongsSummarizied(this);
+    //    m_songsSummarizied = new MusicSongsSummarizied(this);
     m_musicSongsLists = new MusicSongsLists(this);
     m_musicLyrcWidget = new MusicLyrcWidget(this);
     m_musicSongsMedia = new MusicSongsMedia(this);
+    m_musicSongsMedia2 = new MusicSongsMedia(this);
     MusicSongsListWidget *widget = new MusicSongsListWidget(this);
     m_musicSongList.append(widget);
     widget->addMusicFold("/root/CloudMusic/");
@@ -51,17 +53,19 @@ void Contentwidget::initWidget()
 void Contentwidget::initLayout()
 {
     m_mainLayout = new QHBoxLayout(this);
-//    m_mainLayout->addWidget(m_songsSummarizied,Qt::AlignLeft);
+    //    m_mainLayout->addWidget(m_songsSummarizied,Qt::AlignLeft);
     m_mainLayout->addWidget(m_musicSongsLists,Qt::AlignLeft);
     m_mainLayout->addWidget(m_musicLyrcWidget,Qt::AlignRight);
     m_mainLayout->addWidget(m_musicSongList.at(0),Qt::AlignRight);
     m_mainLayout->addWidget(m_musicSongsMedia,Qt::AlignRight);
+    m_mainLayout->addWidget(m_musicSongsMedia2,Qt::AlignRight);
     m_currentwidget = 0;
     this->connectMusicList(m_currentwidget);
     m_mainLayout->setContentsMargins(0,0,0,0);
     setLayout(m_mainLayout);
     m_musicLyrcWidget->hide();
     m_musicSongsMedia->hide();
+    m_musicSongsMedia2->hide();
     m_showOrHide = false;
 }
 
@@ -90,6 +94,15 @@ void Contentwidget::initConnect()
             m_musicSongsMedia,SLOT(slotSaveMusicInfo(QString,QString)));
     connect(m_musicSongsMedia,SIGNAL(signalShowMediaLrc(QString)),
             m_musicLyrcWidget,SLOT(slotAnalyseMedia(QString)));
+
+    connect(m_musicSongsMedia2,SIGNAL(signalPlayMediaMusic(QString)),
+            this,SIGNAL(signalPlayMediaMusic(QString)));
+    connect(m_musicSongsMedia2,SIGNAL(signalShowMediaLrc(QString)),
+            m_musicLyrcWidget,SLOT(slotAnalyseMedia(QString)));
+//    connect(this,SIGNAL(signalShowInfo(QString,QString,QString)),
+//            m_musicSongsMedia2,SLOT(slotAddItem(QString,QString,QString)));
+//    connect(this,SIGNAL(signalSendPinYin(QString,QString)),
+//            m_musicSongsMedia2,SLOT(slotSaveMusicInfo(QString,QString)));
 }
 
 void Contentwidget::connectMusicList(int index)
@@ -97,7 +110,7 @@ void Contentwidget::connectMusicList(int index)
     connect(this,SIGNAL(signalRequestFirstPlayMusic()),
             m_musicSongList.at(index),SLOT(slotGetFirstPlayMusic()));
     connect(m_musicSongList.at(index),SIGNAL(signalSendFirstPlayMusic(QString)),
-                this,SIGNAL(signalSendFirstPlayMusic(QString)));
+            this,SIGNAL(signalSendFirstPlayMusic(QString)));
     connect(this,SIGNAL(signalSendPlayPreviouse()),
             m_musicSongList.at(m_currentwidget),SLOT(slotGetPreviouseMusic()));
     connect(this,SIGNAL(signalSendPlayNext()),
@@ -119,25 +132,25 @@ void Contentwidget::connectMusicList(int index)
 void Contentwidget::disConnectMusicList(int index)
 {
     disconnect(this,SIGNAL(signalRequestFirstPlayMusic()),
-            m_musicSongList.at(index),SLOT(slotGetFirstPlayMusic()));
+               m_musicSongList.at(index),SLOT(slotGetFirstPlayMusic()));
     disconnect(m_musicSongList.at(index),SIGNAL(signalSendFirstPlayMusic(QString)),
-                this,SIGNAL(signalSendFirstPlayMusic(QString)));
+               this,SIGNAL(signalSendFirstPlayMusic(QString)));
     disconnect(this,SIGNAL(signalSendPlayPreviouse()),
-            m_musicSongList.at(m_currentwidget),SLOT(slotGetPreviouseMusic()));
+               m_musicSongList.at(m_currentwidget),SLOT(slotGetPreviouseMusic()));
     disconnect(this,SIGNAL(signalSendPlayNext()),
-            m_musicSongList.at(m_currentwidget),SLOT(slotGetNextMusic()));
+               m_musicSongList.at(m_currentwidget),SLOT(slotGetNextMusic()));
     disconnect(m_musicSongList.at(m_currentwidget),SIGNAL(signalSendPreviousMusic(QString)),
-            this,SIGNAL(signalSendPlayPreviouseMusic(QString)));
+               this,SIGNAL(signalSendPlayPreviouseMusic(QString)));
     disconnect(m_musicSongList.at(m_currentwidget),SIGNAL(signalSendNextMusic(QString)),
-            this,SIGNAL(signalSendPlayNextMusic(QString)));
+               this,SIGNAL(signalSendPlayNextMusic(QString)));
     disconnect(m_musicSongList.at(m_currentwidget),SIGNAL(signalPlayMusicPath(QString)),
-            this,SIGNAL(signalPlayMusic(QString)));
+               this,SIGNAL(signalPlayMusic(QString)));
     disconnect(m_musicSongList.at(m_currentwidget),SIGNAL(signalShowLyric()),
-            this,SLOT(slotShowLrc()));
+               this,SLOT(slotShowLrc()));
     disconnect(this,SIGNAL(signalRequestPlayCmd(int)),
-            m_musicSongList.at(m_currentwidget),SLOT(slotSendPlayCmd(int)));
+               m_musicSongList.at(m_currentwidget),SLOT(slotSendPlayCmd(int)));
     disconnect(m_musicSongList.at(m_currentwidget),SIGNAL(signalSendPlayCmdMusicInfo(QString)),
-            this,SIGNAL(signalSendPlayCmdMusic(QString)));
+               this,SIGNAL(signalSendPlayCmdMusic(QString)));
 }
 
 
@@ -159,6 +172,7 @@ void Contentwidget::slotShowLrc()
 {
     m_musicLyrcWidget->show();
     m_musicSongsMedia->hide();
+    m_musicSongsMedia2->hide();
     m_musicSongList.at(m_currentwidget)->hide();
     m_showOrHide = true;
 }
@@ -166,6 +180,7 @@ void Contentwidget::slotShowLrc()
 void Contentwidget::slotHideLrc()
 {
     m_musicLyrcWidget->hide();
+    m_musicSongsMedia2->hide();
     m_musicSongList.at(m_currentwidget)->show();
     m_showOrHide = false;
 }
@@ -176,9 +191,21 @@ void Contentwidget::slotShowList(int row)
     m_showOrHide = false;
     m_musicSongList.at(m_currentwidget)->hide();
     this->disConnectMusicList(m_currentwidget);
-    m_musicSongList.at(row)->show();
-    m_currentwidget = row;
-    this->connectMusicList(m_currentwidget);
+    if(row == 1){
+        m_musicSongsMedia2->show();
+    }else{
+        m_musicSongsMedia2->hide();
+        if(row == 0){
+            m_musicSongList.at(row)->show();
+            m_currentwidget = row;
+            this->connectMusicList(m_currentwidget);
+        }
+        else{
+            m_musicSongList.at(row-1)->show();
+            m_currentwidget = row-1;
+            this->connectMusicList(m_currentwidget-1);
+        }
+    }
     m_musicSongsMedia->hide();
 }
 
@@ -210,6 +237,7 @@ void Contentwidget::slotShowMediaSongs()
     m_musicSongsMedia->show();
     m_musicSongList.at(m_currentwidget)->hide();
     m_musicLyrcWidget->hide();
+    m_musicSongsMedia2->hide();
     m_showOrHide = false;
 }
 

@@ -171,3 +171,54 @@ void Client::displayError(QAbstractSocket::SocketError)
 {
     qDebug()<<tcpSocket->errorString();
 }
+
+//void Client::receivePlaylist()
+//{
+//    if(bytesReceived <= sizeof(qint32)*2)
+//    {
+//        if(tcpSocket->bytesAvailable() >= sizeof(qint32)*2)
+//        {
+//            in >> totalBytes >> fileNameSize;
+//            qDebug() << totalBytes;
+//            qDebug() << fileNameSize;
+//            bytesReceived += sizeof(qint32)*2;
+//        }
+//        if(tcpSocket->bytesAvailable() >= fileNameSize && (fileNameSize != 0))
+//        {
+//            in >> fileName;
+//            //fileName = "music";
+//            qDebug() << "readd";
+//            bytesReceived += fileNameSize;
+//            QString name = "/root/image/" + fileName;
+//            localFile = new QFile(name);
+//            qDebug() << fileName;
+//            if(!localFile->open(QFile::WriteOnly))
+//            {
+//                qDebug() << "file:open error!";
+//                return;
+//            }
+//        }else{
+//            return;
+//        }
+//    }
+//    if(bytesReceived < totalBytes ){
+//        bytesReceived += tcpSocket->bytesAvailable();
+////        m_lrcText->setText(tcpSocket->readAll());
+//        inBlock = tcpSocket->readAll();
+//        qDebug() << inBlock;
+//        localFile->write(inBlock);
+//        qDebug() << "writing";
+
+//        inBlock.resize(0);
+//    }
+//    if(bytesReceived == totalBytes){
+
+//        localFile->close();
+//        tcpSocket->close();
+//    qDebug() << "accept success";
+
+//    }
+//    bytesReceived = 0;
+//    totalBytes = 0;
+
+//}

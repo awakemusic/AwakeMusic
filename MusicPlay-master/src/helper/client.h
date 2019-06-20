@@ -24,12 +24,14 @@ public slots:
     void showString();
     void sendData(QString data);
     void displayError(QAbstractSocket::SocketError);
+    //void receivePlaylist();
 
 Q_SIGNALS:
     void signalShowImage(QImage image);
     void signalSendInfo(QString name,QString singer,QString album);
     void signalSendPinYin(QString name,QString pinyin);
     void signalSendLrc(QTextEdit *&lrc);
+
 private:
     QTcpSocket *tcpSocket;
     QString data;

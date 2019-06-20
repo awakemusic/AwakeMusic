@@ -23,6 +23,7 @@ MusicMainWidget::MusicMainWidget(QWidget *parent) :
     initWidget();
     initLayout();
     initConnect();
+
 }
 
 MusicMainWidget::~MusicMainWidget()
@@ -64,6 +65,7 @@ void MusicMainWidget::initWidget()
     m_player = new PlayMusic(this);
     m_desktopLrc = new MusicDesktopLrcManage;
     m_client = new Client();
+//    m_client->newConnect();
 }
 
 //布局初始化

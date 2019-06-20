@@ -11,7 +11,6 @@
 *****************************************************************/
 #include "myhelper.h"
 #include <QApplication>
-#include "frmmessagebox.h"
 #include "app.h"
 
 #include <QTime>
@@ -68,49 +67,49 @@ void myHelper::SetChinese()
 
 
 /*显示消息框   仅确认按钮*/
-void myHelper::ShowMessageBoxInfo(QString info)
-{
-    frmMessageBox *msg = new frmMessageBox;
-    msg->SetMessage(info,0);
-    msg->exec();
-}
+//void myHelper::ShowMessageBoxInfo(QString info)
+//{
+//    frmMessageBox *msg = new frmMessageBox;
+//    msg->SetMessage(info,0);
+//    msg->exec();
+//}
 
-/*
- *函数功能：显示错误框,仅确定按钮
- *输入参数：显示的消息内容
- *输出参数：无
- *返回值：无
-*/
-void myHelper::ShowMessageBoxError(QString info)
-{
-    frmMessageBox *msg = new frmMessageBox;
-    msg->SetMessage(info,2);
-    msg->exec();
-}
+///*
+// *函数功能：显示错误框,仅确定按钮
+// *输入参数：显示的消息内容
+// *输出参数：无
+// *返回值：无
+//*/
+//void myHelper::ShowMessageBoxError(QString info)
+//{
+//    frmMessageBox *msg = new frmMessageBox;
+//    msg->SetMessage(info,2);
+//    msg->exec();
+//}
 
-//显示询问框,确定和取消按钮
-int myHelper::ShowMessageBoxQuesion(QString info)
-{
-    frmMessageBox *msg = new frmMessageBox;
-    msg->SetMessage(info,1);
-    return msg->exec();
-}
+////显示询问框,确定和取消按钮
+//int myHelper::ShowMessageBoxQuesion(QString info)
+//{
+//    frmMessageBox *msg = new frmMessageBox;
+//    msg->SetMessage(info,1);
+//    return msg->exec();
+//}
 
-QString myHelper::ShowInputBox(QWidget *frm, QString info)
-{
-    bool ok;
-    return QInputDialog::getText(frm,"提示",info,QLineEdit::Password,"",&ok);
-}
+//QString myHelper::ShowInputBox(QWidget *frm, QString info)
+//{
+//    bool ok;
+//    return QInputDialog::getText(frm,"提示",info,QLineEdit::Password,"",&ok);
+//}
 
-/*
- *显示用户付款信息框，确认所填信息是否正确
-*/
-int myHelper::ShowMessageBoxPayInfo(QString info)
-{
-    frmMessageBox *msg = new frmMessageBox;
-    msg->SetMessage(info,3);
-    msg->exec();
-}
+///*
+// *显示用户付款信息框，确认所填信息是否正确
+//*/
+//int myHelper::ShowMessageBoxPayInfo(QString info)
+//{
+//    frmMessageBox *msg = new frmMessageBox;
+//    msg->SetMessage(info,3);
+//    msg->exec();
+//}
 
 /*
  *检验文件是否存在

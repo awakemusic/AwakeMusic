@@ -55,6 +55,7 @@ void MusicSongsLists::initForm()
 void MusicSongsLists::initWidget()
 {
     this->addItemContent("默认列表");
+    this->addItemContent("推荐列表");
 }
 
 void MusicSongsLists::initConnect()
