@@ -1,14 +1,4 @@
-﻿/*************************************************
-Copyright:kevin
-Author:Kevin LiQi
-Date:2016-03-11
-Email:kevinlq0912@163.com
-QQ:936563422
-Version:V1.0
-Description:基于Qt的音乐播放器--音乐播放控制实现
-Function:进行音乐播放的逻辑控制
-**************************************************/
-#include "playmusic.h"
+﻿#include "playmusic.h"
 #include "vlc/vlc.h"
 #include "qvlcplayer.h"
 #include <QDebug>
@@ -43,10 +33,6 @@ void PlayMusic::slotOpenMusic(QString name)
 
         myHelper::Sleep(100);
         qint64 length = m_player->GetLength();
-#if QDEBUG_OUT
-//        qDebug() <<name;
-//        qDebug()<<"媒体长度："<<length;
-#endif
 
         //打开媒体后，发送媒体信息，包括：媒体长度、当前声音、当前位置
         emit signalSendPlayLength(length);
@@ -72,10 +58,6 @@ void PlayMusic::slotOpenMediaMusic(QString path)
 
         myHelper::Sleep(100);
         qint64 length = m_player->GetLength();
-#if QDEBUG_OUT
-//        qDebug() <<name;
-//        qDebug()<<"媒体长度："<<length;
-#endif
 
         //打开媒体后，发送媒体信息，包括：媒体长度、当前声音、当前位置
         emit signalSendPlayLength(length);
@@ -113,26 +95,8 @@ void PlayMusic::slotReceivePlayCmdMusic(const QString & name)
     }
 }
 
-/*
-typedef enum libvlc_state_t {
-    libvlc_NothingSpecial = 0,
-    libvlc_Opening,
-    libvlc_Buffering,
-    libvlc_Playing,
-    libvlc_Paused,
-    libvlc_Stopped,
-    libvlc_Ended,
-    libvlc_Error
-} libvlc_state_t;
-*/
 void PlayMusic::slotUpdateInterface()
 {
-    //如果当前没有媒体播放，则不发送信息
-//    if (!m_player->IsPlaying())
-//    {
-//        emit signalPlayStatue(MUSIC_PLAY_END);
-//        return;
-//    }
     if (libvlc_NothingSpecial == m_player->GetPlayStatue())
     {
         return;

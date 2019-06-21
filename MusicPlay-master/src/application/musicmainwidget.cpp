@@ -1,5 +1,4 @@
 ﻿#include "musicmainwidget.h"
-
 #include "titlewidget.h"    //标题栏
 #include "contentwidget.h"  //中央窗体
 #include "bottomwidget.h"   //底部工具栏
@@ -174,8 +173,22 @@ void MusicMainWidget::initConnect()
             m_contentWidget,SIGNAL(signalShowInfo(QString,QString,QString)));
     connect(m_client,SIGNAL(signalSendPinYin(QString,QString)),
             m_contentWidget,SIGNAL(signalSendPinYin(QString,QString)));
-//    connect(m_client,SIGNAL(signalSendLrc(QTextEdit)),
-//            m_contentWidget,SIGNAL(signalSendLrc(QTextEdit)));
+    connect(m_client,SIGNAL(signalMediaInfo(QString,QString,QString)),
+            m_contentWidget,SIGNAL(signalMediaInfo(QString,QString,QString)));
+    connect(m_client,SIGNAL(signalMediaPinYin(QString,QString)),
+            m_contentWidget,SIGNAL(signalMediaPinYin(QString,QString)));
+
+    //分类列表向客户端发送信息
+    connect(m_contentWidget,SIGNAL(signalSendData(QString,QString)),
+            m_client,SLOT(sendIdentity(QString,QString)));
+    connect(m_client,SIGNAL(signalSendList(QString)),
+            m_contentWidget,SIGNAL(signalSendList(QString)));
+    connect(m_contentWidget,SIGNAL(signalCategoryClicked()),
+            m_client,SLOT(newSingerConnect()));
+    connect(m_client,SIGNAL(signalShowMusicWidget()),
+            m_contentWidget,SLOT(slotShowMediaSongs()));
+    connect(m_client,SIGNAL(signalMediaPinYins(QString,QString)),
+            m_contentWidget,SIGNAL(signalShowMusics(QString,QString)));
 }
 
 void MusicMainWidget::mousePressEvent(QMouseEvent *event)
@@ -205,20 +218,6 @@ void MusicMainWidget::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void MusicMainWidget::paintEvent(QPaintEvent *)
-{
-    //生成一张位图
-    QBitmap objBitmap(size());
-    //QPainter用于在位图上绘画
-    QPainter painter(&objBitmap);
-    //填充位图矩形框(用白色填充)
-    painter.fillRect(rect(),Qt::white);
-    painter.setBrush(QColor(0,0,0));
-    //在位图上画圆角矩形(用黑色填充)
-    painter.drawRoundedRect(this->rect(),10,10);
-    //使用setmask过滤即可
-    setMask(objBitmap);
-}
 
 //显示皮肤界面
 void MusicMainWidget::slotShowSkinWidget()

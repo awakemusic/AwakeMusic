@@ -1,13 +1,3 @@
-/*************************************************
-Copyright:kevin
-Author:Kevin LiQi
-Date:2016-03-11
-Email:kevinlq0912@163.com
-QQ:936563422
-Version:V1.0
-Description:基于Qt的音乐播放器--主界面的实现
-Function:将标题栏，任务栏，内容窗口进行布局
-**************************************************/
 #ifndef MUSICMAINWIDGET_H
 #define MUSICMAINWIDGET_H
 
@@ -56,7 +46,6 @@ protected :
     virtual void mousePressEvent(QMouseEvent *);
     virtual void mouseReleaseEvent(QMouseEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
-    virtual void paintEvent(QPaintEvent *);
     //virtual bool eventFilter(QObject *, QEvent *);
 
 private:

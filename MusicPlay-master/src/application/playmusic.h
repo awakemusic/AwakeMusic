@@ -1,14 +1,4 @@
-﻿/*************************************************
-Copyright:kevin
-Author:Kevin LiQi
-Date:2016-03-11
-Email:kevinlq0912@163.com
-QQ:936563422
-Version:V1.0
-Description:基于Qt的音乐播放器--音乐播放控制实现
-Function:进行音乐播放的逻辑控制
-**************************************************/
-#ifndef PLAYMUSIC_H
+﻿#ifndef PLAYMUSIC_H
 #define PLAYMUSIC_H
 
 #include <QObject>
@@ -38,7 +28,6 @@ Q_SIGNALS:
 public  Q_SLOTS:
     void slotOpenMusic(QString name);
     void slotOpenMediaMusic(QString path);
-//    void slotSetPlayOrPause(int state);
     void slotSetPlayVolume(int);                    //设置播放音量
     void slotSetPlayPostion(qint64);                //设置播放位置
     void slotReceivePlayCmdMusic(const QString&);   //接收请求回来的歌曲进行播放

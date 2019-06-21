@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>image/qss/blue.css</file>
         <file>image/msg_error.png</file>
         <file>image/msg_info.png</file>
         <file>image/msg_question.png</file>
@@ -10,7 +9,6 @@
         <file>image/skin/2.png</file>
         <file>image/skin/3.png</file>
         <file>image/skin/4.png</file>
-        <file>image/skin/5.png</file>
         <file>image/skin/6.png</file>
         <file>image/skin/7.png</file>
         <file>image/skin/8.png</file>
@@ -63,5 +61,6 @@
         <file>image/desktopTool/ds_lockWindow.png</file>
         <file>image/MusicTitle.png</file>
         <file>image/hide</file>
+        <file>image/skin/5.png</file>
     </qresource>
 </RCC>
