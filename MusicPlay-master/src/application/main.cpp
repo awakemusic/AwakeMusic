@@ -14,6 +14,9 @@ int main(int argc,char *argv[])
     //main->setWindowTitle("欢迎界面");
 
     //
+    DataBase d;
+    d.createConnection();
+    d.createTable();
     loginform_test login;
     if(login.exec() == QDialog::Accepted){
             myHelper::SetChinese();     //加载中文翻译字符

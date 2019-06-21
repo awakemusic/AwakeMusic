@@ -37,6 +37,7 @@ loginform_test::loginform_test(QDialog *parent) :
     //注册按钮
     reBtn = new QPushButton(this);
     reBtn->move(160,200);
+    reBtn->setText("注册");
 
     //退出按钮
     exitBtn = new QPushButton(this);
@@ -45,7 +46,7 @@ loginform_test::loginform_test(QDialog *parent) :
 
     //单击登录按钮时 执行 LoginForm::login 槽函数；//单击退出按钮时 执行 LoginForm::close 槽函数
     connect(loginBtn,&QPushButton::clicked,this,&loginform_test::login);
-    connect(exitBtn,&QPushButton::clicked,this,&loginform_test::regis);
+    connect(reBtn,&QPushButton::clicked,this,&loginform_test::regis);
     connect(exitBtn,&QPushButton::clicked,this,&loginform_test::close);
 
 
@@ -53,9 +54,8 @@ loginform_test::loginform_test(QDialog *parent) :
 
 void loginform_test::login()
 {
-    d.createTable();
     QString name = userNameLEd->text().trimmed();
-    QString password = userNameLEd->text().trimmed();
+    QString password = pwdLEd->text().trimmed();
     //获得userNameLEd输入框的文本userNameLEd->text()；
     //trimmed()去掉前后空格
     //tr()函数，防止设置中文时乱码
@@ -76,8 +76,17 @@ void loginform_test::login()
 
 void loginform_test::regis()
 {
-    d.createTable();//创建连接
+
     QString name = userNameLEd->text().trimmed();
-    QString password = userNameLEd->text().trimmed();
-    d.insert(name,password);
+    QString password = pwdLEd->text().trimmed();
+    if(d.insert(name,password)){
+        QMessageBox::warning(this, tr("警告！"),
+                    tr("注册成功"),
+                    QMessageBox::Yes);
+    }
+    else {
+        QMessageBox::warning(this, tr("警告！"),
+                    tr("注册失败，该用户已存在"),
+                    QMessageBox::Yes);
+    }
 }

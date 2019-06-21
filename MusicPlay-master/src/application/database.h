@@ -20,6 +20,8 @@ public:
     bool updateById(int id);  //更新
     bool deleteById(int id);  //删除
     bool sortById();          //排序
+private:
+    QSqlDatabase db;
 };
 
 #endif // DATABASE_H
